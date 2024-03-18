@@ -1,0 +1,113 @@
+**TERRAFORM**
+
+**Terraform commands:**
+
+#Terafform init
+#terraform validate
+#Terraform plan
+#terraform apply
+#terrafrom destroy
+
+**Terrafrom commands and Explanation:**
+
+Main commands:
+  init          Prepare your working directory for other commands
+  validate      Check whether the configuration is valid
+  plan          Show changes required by the current configuration
+  apply         Create or update infrastructure
+  destroy       Destroy previously-created infrastructure
+
+All other commands:
+  console       Try Terraform expressions at an interactive command prompt
+  fmt           Reformat your configuration in the standard style
+  force-unlock  Release a stuck lock on the current workspace
+  get           Install or upgrade remote Terraform modules
+  graph         Generate a Graphviz graph of the steps in an operation
+  import        Associate existing infrastructure with a Terraform resource
+  login         Obtain and save credentials for a remote host
+  logout        Remove locally-stored credentials for a remote host
+  metadata      Metadata related commands
+  output        Show output values from your root module
+  providers     Show the providers required for this configuration
+  refresh       Update the state to match remote systems
+  show          Show the current state or a saved plan
+  state         Advanced state management
+  taint         Mark a resource instance as not fully functional
+  test          Execute integration tests for Terraform modules
+  untaint       Remove the 'tainted' state from a resource instance
+  version       Show the current Terraform version
+  workspace     Workspace management
+
+
+
+**Meta-Arguments**
+
+A "meta-argument" refers to special arguments that can be used within resource blocks to control certain behaviors or attributes of resources. These meta-arguments are not directly related to the configuration of the resource itself but rather affect how Terraform manages and interacts with the resource.
+
+Here's a simple explanation of some common meta-arguments in Terraform with Azure examples:
+
+**Count:**
+
+The count meta-argument allows you to create multiple instances of a resource based on a specified count.
+Example: Creating multiple Azure virtual machines using count.
+hcl
+
+resource "azurerm_virtual_machine" "example" {
+  count = 3
+  ...
+}
+
+**Depends_on:**
+
+The depends_on meta-argument specifies the dependency relationship between resources, ensuring that one resource is created or updated before another resource.
+Example: Ensuring that a virtual machine is created after a resource group.
+hcl
+
+
+resource "azurerm_resource_group" "example" {
+  ...
+}
+0
+r0esource "azurerm_virtual_machine" "example" {
+  00depends_on = [azurerm_resource_group.example]
+  ...
+}
+
+**Provider:**
+
+The provider meta-argument specifies the provider configuration for a resource, allowing you to use different providers for different resources within the same configuration.
+Example: Using a specific Azure provider for a virtual network resource.
+hcl
+
+
+provider "azurerm" {
+  features {}
+  ...
+}
+
+resource "azurerm_virtual_network" "example" {
+  provider = azurerm.uswest
+  ...
+}
+
+**Lifecycle:**
+
+The lifecycle meta-argument defines certain lifecycle behavior for a resource, such as preventing resource deletion or updating.
+Example: Preventing updates to a specific Azure virtual machine.
+hcl
+
+resource "azurerm_virtual_machine" "example" {
+  ...
+  lifecycle {
+    ignore_changes = [
+      storage_image_reference
+    ]
+  }
+}
+
+/*These are just a few examples of meta-arguments in Terraform. They provide additional flexibility and control over how resources are managed and configured within your infrastructure code.*/
+
+
+
+
+
